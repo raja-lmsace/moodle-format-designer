@@ -226,11 +226,11 @@ class lib_test extends \advanced_testcase {
 
         $params = ['format' => 'designer', 'numsections' => 5, 'startdate' => 1445644800];
         $course = $this->getDataGenerator()->create_course($params);
-        $category = $DB->get_record('course_categories', ['id' => $course->category]);
+        //$category = $DB->get_record('course_categories', ['id' => $course->category]);
 
         $args = [
             'course' => $course,
-            'category' => $category,
+            //'category' => $category,
             'editoroptions' => [
                 'context' => \context_course::instance($course->id),
                 'subdirs' => 0,
