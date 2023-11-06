@@ -634,6 +634,7 @@ span.section-collapse-icon:before {
     content: '\f107';
     width: 20px;
     font-family: var(--fa-style-family,"Font Awesome 6 Free");
+    font-weight: var(--fa-style,900);
     font-size: 24px;
     font-weight: bold;
     line-height: 32px;
@@ -2173,7 +2174,8 @@ body.format-designer.editing .designer .section .content .section.card-layout li
 }
 .format-designer .course-info-block .carousel .carousel-control:before {
     content: '\f104';
-    font-family: fontawesome;
+    font-family: var(--fa-style-family,"Font Awesome 6 Free");
+    font-weight: var(--fa-style,900);
     color: #fff;
 }
 .format-designer .course-info-block .carousel .carousel-control-next:before {
