@@ -63,9 +63,6 @@
 .format-designer ul.designer .card.card-list.restricted {
     border-color: #ccc;
 }
-/* .format-designer ul.designer .card-layout .card.card-list .card-body .mod-indent-outer > div {
-    position: relative;
-} */
 .format-designer ul.designer .card.card-list .card-body .mod-indent-outer .completion-info {
     text-align: center;
     margin-bottom: 5px;
@@ -269,14 +266,6 @@
     margin: 0 0 0 10px;
     float: left;
 }
-/* .format-designer .course-content ul.designer.course-type-normal li.section .section-header-content a.goto-section:after {
-    content: '\f061';
-    font-size: 24px;
-    font-family: 'FontAwesome';
-    text-indent: 0;
-    margin: 0 0 0 10px;
-    float: left;
-} */
 .format-designer #goto-top-link {
     z-index: 1;
 }
@@ -295,6 +284,7 @@ body.format-designer.path-admin #page.drawers .main-inner .header-maxwidth {
 .format-designer .course-content ul.designer li.section .section-content-wrapper.section-progress-info-completed .section-progress-info {
     width: auto;
 }
+
 /* Section activities lists */
 .format-designer .course-content ul.designer.course-type-normal li.section .section-header-content .section-summary-activities {
     width: 80%;
@@ -518,9 +508,6 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     left: 0;
     z-index: -1;
 }
-/* .format-designer .course-content ul.designer.course-type-flow li.section.main .section-background-style.section-design-whole {
-    z-index: 0;
-} */
 .format-designer .course-content ul.designer li.section.main
 .section-background-style.section-design-whole .mask-inner-section,
 .format-designer .course-content ul.designer li.section .section-header-content
@@ -2946,7 +2933,6 @@ body.format-designer.editing .designer .section .content .section.card-layout li
     height: auto;
 }
 .format-designer .course-content ul.designer.course-type-flow {
-    /* display: contents; */
     margin-top: 30px;
 }
 .format-designer .course-content ul.course-type-flow.designer .section.main .section-content-wrapper {
