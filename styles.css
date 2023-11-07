@@ -628,7 +628,6 @@ span.section-collapse-icon:before {
     font-family: var(--fa-style-family, "Font Awesome 6 Free");
     font-weight: var(--fa-style, 900);
     font-size: 24px;
-    font-weight: bold;
     line-height: 32px;
     text-align: center;
     margin-right: 10px;
