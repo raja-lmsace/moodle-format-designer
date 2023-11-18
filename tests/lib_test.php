@@ -146,6 +146,7 @@ class lib_test extends \advanced_testcase {
     /**
      * Test web service updating section name.
      * @covers \core_external::update_inplace_editable
+     * @covers \external_api::clean_returnvalue
      * @return void
      */
     public function test_update_inplace_editable() {
