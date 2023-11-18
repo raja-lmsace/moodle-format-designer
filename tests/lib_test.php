@@ -176,7 +176,7 @@ class lib_test extends \advanced_testcase {
         if (class_exists("\core_external\external_api")) {
             $res = \core_external\external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
         } else {
-            $res = external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
+            $res = \external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
         }
         $this->assertEquals('New section name', $res['value']);
         $this->assertEquals('New section name', $DB->get_field('course_sections', 'name', ['id' => $section->id]));
