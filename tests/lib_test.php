@@ -24,6 +24,8 @@
 
 namespace format_designer;
 
+use core_external\external_api;
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
