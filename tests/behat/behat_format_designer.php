@@ -308,11 +308,13 @@ class behat_format_designer extends behat_base {
         global $CFG;
 
         if ($CFG->branch == "403") {
-            // Moodle 4.3
-            $this->execute('behat_forms::i_set_the_field_to', ['Completion options unlocked', 'Students must manually mark the activity as done']);
+            // Moodle 4.3.
+            $this->execute('behat_forms::i_set_the_field_to', ['Completion options unlocked',
+            'Students must manually mark the activity as done']);
         } else {
             // Below moodle versions.
-            $this->execute('behat_forms::i_set_the_field_to', ['Completion tracking', 'Students can manually mark the activity as completed']);
+            $this->execute('behat_forms::i_set_the_field_to', ['Completion tracking',
+            'Students can manually mark the activity as completed']);
         }
     }
 }
