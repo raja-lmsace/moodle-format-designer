@@ -41,7 +41,7 @@ Feature: Sections can be check activity completion element in designer format
   Scenario: Check the manual mark completion the activity
     Given I am on the "Test assignment name" "assign activity editing" page logged in as teacher1
     And I expand all fieldsets
-    And I set the field "Completion tracking" to "Students can manually mark the activity as completed"
+    And I set the field completion condition
     And I press "Save and return to course"
     And I log out
     And I log in as "student1"
