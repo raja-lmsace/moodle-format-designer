@@ -24,7 +24,7 @@
 
 namespace format_designer;
 
-use core_external\external_api;
+//use core_external\external_api;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -175,11 +175,12 @@ class lib_test extends \advanced_testcase {
         $this->getDataGenerator()->enrol_user($user->id, $course->id, $teacherrole->id);
 
         $res = \core_external::update_inplace_editable('format_designer', 'sectionname', $section->id, 'New section name');
-        if (!class_exists("\core_external\external_api")) {
-            $res = \external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
-        } else {
-            $res = external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
-        }
+        $res = \core_external\external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
+        // if (class_exists("\core_external\external_api")) {
+        //     $res = \core_external\external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
+        // } else {
+        //     $res = \external_api::clean_returnvalue(\core_external::update_inplace_editable_returns(), $res);
+        // }
         $this->assertEquals('New section name', $res['value']);
         $this->assertEquals('New section name', $DB->get_field('course_sections', 'name', ['id' => $section->id]));
     }
