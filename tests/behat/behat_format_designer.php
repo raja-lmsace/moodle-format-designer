@@ -300,4 +300,19 @@ class behat_format_designer extends behat_base {
         }
     }
 
+
+    /**
+     * Set the activity completion condition manually.
+     * @Given I set the activity completion condition manually.
+     */
+    public function i_set_the_activity_completion_condition_manually() {
+        global $CFG;
+
+        if ($CFG->branch == "403") {
+            $this->execute('behat_forms::i_set_the_field_to', ['id_completion_1', 1]);
+        } else {
+            $this->execute('behat_forms::i_set_the_field_to', ['Completion tracking',
+            'Students can manually mark the activity as completed']);
+        }
+    }
 }
