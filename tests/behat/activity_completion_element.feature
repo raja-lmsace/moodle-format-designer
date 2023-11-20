@@ -29,7 +29,6 @@ Feature: Sections can be check activity completion element in designer format
     And I navigate to "Settings" in current page administration
     And I set the following fields to these values:
       | Enable completion tracking | Yes |
-    And I wait "15" seconds
     And I press "Save and display"
     Then I log out
     And I log in as "admin"
@@ -43,14 +42,7 @@ Feature: Sections can be check activity completion element in designer format
     Given I am on the "Test assignment name" "assign activity editing" page logged in as teacher1
     And I expand all fieldsets
     And I set student complete the activity completion condition manually
-    # And I set the following fields to these values:
-    #   | id_completion_1 | 1 |
-    And I wait "10" seconds
     And I press "Save and return to course"
-    And I log out
-    And I am on the "Test assignment name" "assign activity editing" page logged in as teacher1
-    And I expand all fieldsets
-    And I wait "10" seconds
     And I log out
     And I log in as "student1"
     And I am on "Course 1" course homepage
