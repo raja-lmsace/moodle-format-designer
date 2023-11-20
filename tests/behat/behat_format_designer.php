@@ -300,21 +300,4 @@ class behat_format_designer extends behat_base {
         }
     }
 
-    /**
-     * Changed the completion condition name and values.
-     * @Given I set the field completion condition
-     */
-    public function i_set_the_field_completion_condition() {
-        global $CFG;
-
-        if ($CFG->branch == "403") {
-            // Moodle 4.3.
-            $this->execute('behat_forms::i_set_the_field_to', ['Completion options unlocked',
-            'Students must manually mark the activity as done']);
-        } else {
-            // Below moodle versions.
-            $this->execute('behat_forms::i_set_the_field_to', ['Completion tracking',
-            'Students can manually mark the activity as completed']);
-        }
-    }
 }
