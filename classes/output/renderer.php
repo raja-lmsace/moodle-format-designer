@@ -610,7 +610,6 @@ class renderer extends \core_courseformat\output\section_renderer {
         $tablet = isset($section->tabletwidth) ? $section->tabletwidth : '';
         $mobile = isset($section->mobilewidth) ? $section->mobilewidth : '';
         $desktop = isset($section->desktopwidth) ? $section->desktopwidth : '';
-
         $widthclasses = [0 => 12, 1 => 6, 2 => 4, 3 => 3, 4 => 2 ];
         $classes = [];
         foreach (['desktop' => 'md', 'tablet' => 'sm', 'mobile' => ''] as $device => $size) {
