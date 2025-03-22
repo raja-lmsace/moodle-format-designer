@@ -80,12 +80,13 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
+                // Check module state in deletionprogress.
                 // If the old non-ajax move is necessary, we do not print the selected cm.
-                if ($showmovehere && $USER->activitycopy == $mod->id) {
+                if (($showmovehere && $USER->activitycopy == $mod->id)) {
                     continue;
                 }
                 if ($mod->is_visible_on_course_page()) {
-                    $item = new $this->itemclass($format, $section, $mod, $this->displayoptions, );
+                    $item = new $this->itemclass($format, $section, $mod, $this->displayoptions);
                     $data->cms[] = (object)[
                         'cmitem' => $item->export_for_template($output),
                         'moveurl' => new moodle_url('/course/mod.php', ['moveto' => $modnumber, 'sesskey' => sesskey()]),
@@ -117,7 +118,6 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
                 $templatename = 'layouts_' . $sectiontype . '/layout/section_layout_' . $sectiontype;
             }
         }
-
         $templatename = $output->is_template_exists($templatename);
         $data->sectionlayoutclass = $sectionlayoutclass;
         $cmscontent = $OUTPUT->render_from_template($templatename, $data);
@@ -125,6 +125,7 @@ class cmlist extends \core_courseformat\output\local\content\section\cmlist {
             return $cmscontent;
         }
         $data->cmscontent = $cmscontent;
+        $data->groupmode = isset($mod->groupmode) ? $mod->groupmode : '';
         return $data;
     }
 }
