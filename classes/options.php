@@ -255,6 +255,8 @@ class options {
     public static function get_file_areas($structure='module') {
         if (format_designer_has_pro()) {
             return \local_designer\options::get_file_areas($structure);
+        } else {
+            return [];
         }
     }
 
