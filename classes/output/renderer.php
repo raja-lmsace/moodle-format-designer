@@ -1322,6 +1322,7 @@ class renderer extends \core_courseformat\output\section_renderer {
             'duration_formatted' => $durationformatted,
             'enableactivityimage' => $enableactivityimage ?? false,
             'hascmbulk' => class_exists('core_courseformat\output\local\content\bulkedittoggler') ? true : false,
+            'haspro' => format_designer_has_pro(),
         ];
         if (format_designer_has_pro()) {
             require_once($CFG->dirroot. "/local/designer/lib.php");

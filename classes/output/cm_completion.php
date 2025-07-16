@@ -436,6 +436,7 @@ class cm_completion implements renderable, templatable {
             'overdueby' => $this->get_overdue_by(),
             'duetoday' => $this->is_due_today(),
             'colorclass' => $this->get_color_class(),
+            'badgeprimaryclass' => ($this->get_color_class() == 'notstarted') ? 'badge-primary' : '',
             'completioncheckbox' => $this->get_completion_checkbox(),
             'completionexpected' => ($this->get_completion_expected()) ? true : false,
             'completiontrackingmanual' => $this->get_completion_mode() == COMPLETION_TRACKING_MANUAL,

@@ -47,8 +47,10 @@
             {{> core_courseformat/local/content/cm/bulkselect }}
         {{/ core_courseformat/local/content/cm/bulkselect }}
     {{/hascmbulk}}
+    {{#haspro}}
     <div class="activity-background-style" style="{{#modulebackgroundstyle}} {{modulebackgroundstyle}} {{/modulebackgroundstyle}}">
     </div>
+    {{/haspro}}
     {{#modbackoverlaycolor}}
     <div class="bg-overlay" style="{{modbackoverlaycolor}}"></div>
     {{/modbackoverlaycolor}}
