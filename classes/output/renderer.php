@@ -1017,6 +1017,8 @@ class renderer extends \core_courseformat\output\section_renderer {
             'maskimage' => (isset($section->sectiondesignermaskimage) && $section->sectiondesignermaskimage) ? true : false,
             'flowsizeclass' => (isset($course->flowsize) && $course->coursetype == DESIGNER_TYPE_FLOW &&
             !$this->page->user_is_editing()) ? $this->get_flow_size($course) : '',
+            'datatarget' => ($CFG->branch >= 500) ? 'data-bs-target' : 'data-target',
+            'datatoggle' => ($CFG->branch >= 500) ? 'data-bs-toggle' : 'data-toggle',
         ];
         $zerotohero = $course->sectionzeroactivities;
         if ($zerotohero == DESIGNER_HERO_ZERO_HIDE && $section->section == 0 && !$this->page->user_is_editing()) {
