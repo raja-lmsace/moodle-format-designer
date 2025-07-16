@@ -453,7 +453,7 @@ body.format-designer.path-admin #page.drawers .main-inner .header-maxwidth {
 }
 .format-designer ul.designer .badge.badge-notstarted {
     color: white;
-    background-color: var(--primary);
+    /* background-color: var(--primary); */
 }
 
 @media (min-width: 768px) {
@@ -520,7 +520,7 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     clear: both;
 }
 .format-designer .course-content ul.designer li.section.main {
-    width: 100%;
+    /* width: 100%; */
     padding: 0;
     padding-bottom: 1rem;
     margin: 1.5rem auto 0;
@@ -608,7 +608,7 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
-    z-index: 0;
+    /* z-index: 0; */
 }
 .format-designer .course-content ul.designer li.section .section-header-content .section-head-text {
     display: inline-block;
@@ -622,6 +622,9 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
 .format-designer .course-content ul.designer li.section .section-header-content .sectionname {
     max-width: 300px;
     display: inline-block;
+}
+.format-designer .course-content ul.designer li.section .section-header-content .sectionname .inplaceeditable {
+    display: inline-flex;
 }
 .format-designer .course-content ul.designer li.section .section-header-content .sectionbadges {
     display: inline-block;
@@ -1603,7 +1606,7 @@ span.section-collapse-icon:before {
     display: none;
 }
 .format-designer .designer .section .content .section.card-layout li.activity .completion-html-card {
-    margin: 0;
+    margin: 0 0 10px;
 }
 .format-designer .designer .section .content .section.card-layout li.activity .restricted .completion-html-card
 .completion-info .badge-restricted span {
