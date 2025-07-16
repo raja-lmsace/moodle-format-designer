@@ -806,7 +806,7 @@ span.section-collapse-icon:before {
     position: relative;
 }
 .format-designer .designer .section.img-text .activity-block .availability-info .restrict-block {
-    margin-left: 15px;
+    margin-left: 20px;
 }
 .format-designer .designer .section.img-text.link-layout .activity-block .availability-info {
     display: inline-block;
@@ -916,6 +916,8 @@ span.section-collapse-icon:before {
     width: 100%;
     padding-right: 30px;
     margin-bottom: 0;
+    display: inline-flex;
+    align-items: center;
 }
 .format-designer .designer .section.img-text.card-layout .activity .activity-block .activityinstance {
     padding-right: 0;
@@ -1346,6 +1348,12 @@ span.section-collapse-icon:before {
 .format-designer .activity-item,
 .format-designer .activity-item.hiddenactivity {
     background-color: transparent;
+}
+.format-designer .activity-item .activity-actions .actions .menubar .dropdown .dropdown-menu .dropdown-item:not(.menu-action) {
+    display: none;
+}
+.format-designer .course-content .section .right .menubar .action-menu-trigger {
+    margin-left: auto;
 }
 .format-designer .designer .section .content .section li.activity .badge-restricted {
     background: #ced4da;
