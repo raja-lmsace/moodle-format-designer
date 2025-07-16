@@ -469,6 +469,8 @@ class renderer extends \core_courseformat\output\section_renderer {
             'slidearrow' => count($coursestaffs) > 1 ? true : false,
             'currentuser' => $USER->id,
             'ismessaging' => $CFG->messaging,
+            'dataride' => $CFG->branch >= 500 ? "data-bs-ride" : "data-ride",
+            "dataslide" => $CFG->branch >= 500 ? "data-bs-slide" : "data-slide",
         ];
 
         if (format_designer_has_pro()) {
