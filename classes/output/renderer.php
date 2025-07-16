@@ -1176,6 +1176,7 @@ class renderer extends \core_courseformat\output\section_renderer {
         $cmtext = '';
         $videotime = $mod->modname == 'videotime';
         $isvideotimelabel = false;
+        $videoinstance = null;
         $useactivityimagestatus = false;
         $useactivityimage = '';
         if (format_designer_has_pro()) {
@@ -1195,8 +1196,8 @@ class renderer extends \core_courseformat\output\section_renderer {
         if (!empty($url) && !$videotime) {
             $cmtext = $mod->get_formatted_content(['overflowdiv' => true, 'noclean' => true]);
             if (isset($videotime) && $videotime) {
-                $videotime = $DB->get_record('videotime', ['id' => $mod->instance]);
-                $cmtext = $videotime->intro;
+                $videoinstance = $DB->get_record('videotime', ['id' => $mod->instance]);
+                $cmtext = $videoinstance->intro;
             }
             $cmtextcontent = format_string($cmtext);
             $cmtextlength = get_config('format_designer', 'activitydesclength');
@@ -1258,7 +1259,9 @@ class renderer extends \core_courseformat\output\section_renderer {
         $videotimeduration = '';
         $durationformatted = '';
         if ($mod->modname == 'videotime') {
-            $videoinstance = $DB->get_record('videotime', ['id' => $mod->instance]);
+            if ($videoinstance === null) {
+                $videoinstance = $DB->get_record('videotime', ['id' => $mod->instance]);
+            }
             $dbman = $DB->get_manager();
             if ($videoinstance && $dbman->table_exists('videotime_vimeo_video')) {
                 if ($video = $DB->get_record('videotime_vimeo_video', ['link' => $videoinstance->vimeo_url])) {
@@ -1353,9 +1356,8 @@ class renderer extends \core_courseformat\output\section_renderer {
      */
     public function get_activity_elementclasses($mod) {
 
-        $option  = \format_designer\options::get_option($mod->id, 'activityelements');
-        if (!empty($option)) {
-            $element = json_decode($option, true);
+        $option = \format_designer\options::get_option($mod->id, 'activityelements');
+        if ($option) {
             $classes = [
                 0 => 'content-hide', 1 => 'content-show', 2 => 'content-show-hover',
                 3 => 'content-hide-hover', 4 => 'content-remove',
@@ -1363,7 +1365,7 @@ class renderer extends \core_courseformat\output\section_renderer {
 
             $elementclasses = array_map(function($v) use ($classes) {
                 return (isset($classes[$v])) ? $classes[$v] : $v;
-            }, $element);
+            }, (array) $option);
             return $elementclasses;
         }
         return [];

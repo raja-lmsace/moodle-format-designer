@@ -270,6 +270,9 @@ class format_designer extends \core_courseformat\base {
             if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 $url->param('section', $sectionno);
             } else {
+                if (empty($CFG->linkcoursesections) && !empty($options['navigation'])) {
+                    return null;
+                }
                 $url->set_anchor('section-'.$sectionno);
             }
         }
@@ -1445,7 +1448,12 @@ class format_designer extends \core_courseformat\base {
      */
     public function setup_kanban_layouts($course) {
         global $DB;
-        $sections = $DB->get_records('course_sections', ['course' => $course['id']]);
+        $sections = $DB->get_recordset_sql(
+            "SELECT id
+            FROM {course_sections}
+            WHERE section <> 0 AND course = ?",
+            [$course['id']]
+        );
         foreach ($sections as $section) {
             if ($section->section == 0) {
                 continue;
@@ -1455,6 +1463,7 @@ class format_designer extends \core_courseformat\base {
             $this->set_section_option($section->id, 'layouttabletcolumn', '1');
             $this->set_section_option($section->id, 'layoutdesktopcolumn', '1');
         }
+        $sections->close();
     }
 
     /**
@@ -2143,13 +2152,13 @@ function format_designer_course_has_videotime($course) {
     global $DB;
     $pluginman = \core_plugin_manager::instance();
     $plugininfo = $pluginman->get_plugin_info('mod_videotime');
-    if (!empty($plugininfo)) {
-        $videotime = $DB->get_record("modules", ['name' => 'videotime']);
-        if ($DB->record_exists('course_modules', ['course' => $course->id, 'module' => $videotime->id])) {
-            return true;
-        }
-    }
-    return false;
+
+    return !empty($plugininfo) && $DB->record_exists_sql(
+        "SELECT 1 FROM {modules} m
+        JOIN {course_modules} cm ON cm.module = m.id AND cm.course = ?
+        WHERE m.name = ?",
+        [$course->id, 'videotime']
+    );
 }
 
 /**

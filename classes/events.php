@@ -132,14 +132,17 @@ class events {
         $userid = $event->relateduserid;
         $courseid = $event->courseid;
         self::course_user_cache_updated($courseid, $userid);
-        $records = $DB->get_records('course_completion_criteria', ['courseinstance' => $courseid]);
-        if ($records) {
-            foreach ($records as $record) {
-                if ($record) {
-                    self::course_user_cache_updated($record->course, $userid);
-                }
-            }
+
+        // Get all related courses in one query and batch process.
+        $sql = "SELECT DISTINCT course
+                FROM {course_completion_criteria}
+                WHERE courseinstance = ?";
+        $records = $DB->get_recordset_sql($sql, [$courseid]);
+        // Batch update caches for all related courses.
+        foreach ($records as $record) {
+            self::course_user_cache_updated($record->course, $userid);
         }
+        $records->close();
     }
 
     /**

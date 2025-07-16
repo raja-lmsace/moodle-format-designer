@@ -34,6 +34,13 @@ use format_designer\output\cm_completion;
  * Module additional custom fields processing.
  */
 class options {
+    
+    /**
+     * Cache for options per cmid.
+     *
+     * @var array
+     */
+    static $optionspercmid = [];
 
     /**
      * Find the given string is JSON format or not.
@@ -50,34 +57,42 @@ class options {
      *
      * @param int $cmid Course module id.
      * @param string $name Module additional field name.
-     * @return null|string Returns value of given module field.
+     * @return object Returns value of given module field.
      */
     public static function get_option(int $cmid, $name) {
         global $DB;
-        if ($data = $DB->get_field('format_designer_options', 'value',
-            ['cmid' => $cmid, 'name' => $name])) {
-            return $data;
-        }
-        return null;
+        return self::get_options($cmid)->{$name} ?? null;
     }
 
     /**
      * Get designer additional fields values for the given module.
      *
      * @param int $cmid course module id.
-     * @return stdclass $options List of additional field values
+     * @return mixed  $options List of additional field values
      */
     public static function get_options($cmid) {
         global $DB;
-        $options = new \stdclass;
-        if ($records = $DB->get_records('format_designer_options', ['cmid' => $cmid])) {
-            foreach ($records as $key => $field) {
-                $options->{$field->name} = self::is_json($field->value)
-                    ? json_decode($field->value, true) : $field->value;
+        if (!isset($optionspercmid[$cmid])) {
+            $options = new \stdClass();
+            $optionrs = $DB->get_recordset('format_designer_options', [ 'cmid' => $cmid ], '', 'name, value');
+            foreach ($optionrs as $field) {
+                $value = $field->value;
+                if (
+                    $value
+                    && $value[0] === '{' // Yes, json_decode is fast, but we can avoid calling it for no reason.
+                    && ($json = json_decode($field->value, true))
+                    && ($value !== null || json_last_error() === JSON_ERROR_NONE)
+                ) {
+                    $value = $json;
+                }
+                $options->{$field->name} = $value;
             }
+            $optionrs->close();
+            $optionspercmid[$cmid] = $options;
         }
-        return $options;
+        return $optionspercmid[$cmid];
     }
+
 
     /**
      * Insert the additional module fields data to the table.
