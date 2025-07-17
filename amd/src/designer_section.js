@@ -116,13 +116,20 @@
     DesignerSection.prototype.modules = null;
 
     DesignerSection.prototype.redirectToModule = function(event) {
+
         let nodeName = event.target.nodeName;
         let preventionNodes = ['a', 'button', 'form'];
         let iscircle = event.target.closest('li.activity').classList.contains('circle-layout');
         let isDescription = event.target.classList.contains('mod-description-action');
         let isPadlock = event.target.classList.contains('fa-lock');
         let ispopupModule = event.target.closest('li.activity').classList.contains('popmodule');
-        let isModHasURL = event.target.closest('li.activity div[data-action="go-to-url"]').getAttribute('data-url');
+
+        if (nodeName in preventionNodes) {
+            var isModHasURL = event.target.closest('li.activity div[data-action="go-to-url"]').getAttribute('data-url');
+        } else {
+            var isModHasURL = '';
+        }
+
         let isCompletionButton = event.target.closest('button[data-action="toggle-manual-completion"]');
         let isonClickevent = event.target.getAttribute('onclick');
         if ((nodeName in preventionNodes)
@@ -184,8 +191,12 @@
                     content.classList.add('show');
                 }
                 if (document.getElementById('section-course-accordion') !== null) {
-                    document.getElementById('section-head-0').classList.add('collapsed');
-                    document.getElementById('section-content-0').classList.remove('show');
+                    if (document.getElementById('section-head-0') !== null) {
+                        document.getElementById('section-head-0').classList.add('collapsed');
+                    }
+                    if (document.getElementById('section-content-0') !== null) {
+                        document.getElementById('section-content-0').classList.remove('show');
+                    }
                 }
                 section.scrollIntoView();
             }
