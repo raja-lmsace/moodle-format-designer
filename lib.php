@@ -1449,7 +1449,7 @@ class format_designer extends \core_courseformat\base {
     public function setup_kanban_layouts($course) {
         global $DB;
         $sections = $DB->get_recordset_sql(
-            "SELECT id
+            "SELECT id, section
             FROM {course_sections}
             WHERE section <> 0 AND course = ?",
             [$course['id']]
