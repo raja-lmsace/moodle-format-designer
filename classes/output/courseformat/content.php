@@ -66,7 +66,12 @@ class content extends content_base {
             'sectionreturn' => null,
         ];
 
-        $singlesectionnum = $format->get_sectionnum();
+        if (method_exists($format, 'get_sectionnum')) {
+            $singlesectionnum = $format->get_sectionnum();
+        } else {
+            $singlesectionnum = $format->get_section_number();
+        }
+
         $singlesectionnumhandled = false;
         if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE && optional_param('section', -1, PARAM_INT) >= 0) {
             $singlesectionnumhandled = true;
@@ -176,7 +181,14 @@ class content extends content_base {
      */
     protected function get_sections_to_display(course_modinfo $modinfo): array {
         global $CFG;
-        $singlesection = $this->format->get_sectionnum();
+        $format = $this->format;
+
+         if (method_exists($format, 'get_sectionnum')) {
+            $singlesection = $format->get_sectionnum();
+        } else {
+            $singlesection = $format->get_section_number();
+        }
+
         $course = $this->format->get_course();
         if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE && optional_param('section', -1, PARAM_INT) >= 0) {
             $singlesection = empty($singlesection) ? 0 : $singlesection;

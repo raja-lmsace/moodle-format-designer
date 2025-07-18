@@ -103,7 +103,12 @@ class renderer extends \core_courseformat\output\section_renderer {
         $data->startid = $startid;
 
         $format = course_get_format($course);
-        $singlesection = $format->get_sectionnum();
+
+        if (method_exists($format, 'get_sectionnum')) {
+            $singlesection = $format->get_sectionnum();
+        } else {
+            $singlesection = $format->get_section_number();
+        }
 
         $data->issectionpageclass = $singlesection || ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE)
             ? 'section-page-layout' : '';
@@ -264,7 +269,7 @@ class renderer extends \core_courseformat\output\section_renderer {
         $numsections = course_get_format($course)->get_last_section_number();
         $isstealth = $section->section > $numsections;
 
-        $baseurl = course_get_url($course, $sectionreturn);
+        $baseurl = course_get_url($course, $sectionreturn, ['navigation' => true]);
         $baseurl->param('sesskey', sesskey());
 
         $controls = [];
@@ -702,7 +707,7 @@ class renderer extends \core_courseformat\output\section_renderer {
                         $section = course_get_format($course)->get_section($sectionno);
                         if ($section->visible) {
                             $sectionname = get_section_name($course, $section);
-                            $sectionurl = new moodle_url('/course/view.php', ['id' => $course->id, 'section' => $sectionno]);
+                            $sectionurl = course_get_url($section->course, $section->section, ['navigation' => true]);
                             $sectiontooltiplink = html_writer::link($sectionurl,
                                     get_string('strsection', 'format_designer') . ": ". $sectionname);
                             $realtiveactivities = isset($course->calsectionprogress) &&
@@ -886,7 +891,8 @@ class renderer extends \core_courseformat\output\section_renderer {
     public function render_section_data(section_info $section, stdClass $course, $onsectionpage,
         $sectionheader = false, $sectionreturn = 0, $sectioncontent = false) {
         global $CFG;
-        $sectionurl = new \moodle_url('/course/view.php', ['id' => $course->id, 'section' => $section->section]);
+        $sectionurl = course_get_url($section->course, $section->section, ['navigation' => true]);;
+
         if (format_designer_has_pro() && !$section->uservisible && $section->availableinfo
                 && !empty($section->sectioncardredirect)) {
             $sectionurl = $section->sectioncardredirect;

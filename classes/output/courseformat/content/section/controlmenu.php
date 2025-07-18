@@ -97,7 +97,13 @@ class controlmenu extends controlmenu_base {
 
         $hassectiontypes = true;
 
-        $sectionnum = $this->format->get_sectionnum();
+        $format = $this->format;
+
+        if (method_exists($format, 'get_sectionnum')) {
+            $sectionnum = $format->get_sectionnum();
+        } else {
+            $sectionnum = $format->get_section_number();
+        }
 
         $course = $this->format->get_course();
 
@@ -203,7 +209,8 @@ class controlmenu extends controlmenu_base {
         $numsections = $format->get_last_section_number();
         $isstealth = $section->section > $numsections;
 
-        $baseurl = course_get_url($course, $sectionreturn);
+        $baseurl = course_get_url($course, $sectionreturn, ['navigation' => true]);
+
         $baseurl->param('sesskey', sesskey());
 
         $course = $format->get_course();
@@ -213,7 +220,7 @@ class controlmenu extends controlmenu_base {
         // Only show the view link if we are not already in the section view page.
         if ($PAGE->pagetype !== 'section-view-' . $course->format) {
             $controls['view'] = [
-                'url'   => new moodle_url('/course/view.php', ['id' => $course->id, 'section' => $section->section]),
+                'url'   => course_get_url($course, $section->section, ['navigation' => true]),
                 'icon' => 'i/viewsection',
                 'name' => get_string('view'),
                 'pixattr' => ['class' => ''],

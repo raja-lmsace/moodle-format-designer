@@ -256,24 +256,35 @@ class format_designer extends \core_courseformat\base {
         } else {
             $sectionno = $section;
         }
-        if ($sectionno !== null) {
-            if ($sr !== null) {
-                if ($sr) {
-                    $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
-                    $sectionno = $sr;
-                } else {
-                    $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+
+        if ($CFG->branch >= 404) {
+            if ((!empty($options['navigation']) || array_key_exists('sr', $options)) && $sectionno !== null) {
+                // Display section on separate page.
+                $sectioninfo = $this->get_section($sectionno);
+                if (isset($sectioninfo)) {
+                    return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
                 }
-            } else {
-                $usercoursedisplay = $course->coursedisplay;
             }
-            if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
-                $url->param('section', $sectionno);
-            } else {
-                if (empty($CFG->linkcoursesections) && !empty($options['navigation'])) {
-                    return null;
+        } else {
+            if ($sectionno !== null) {
+                if ($sr !== null) {
+                    if ($sr) {
+                        $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
+                        $sectionno = $sr;
+                    } else {
+                        $usercoursedisplay = COURSE_DISPLAY_SINGLEPAGE;
+                    }
+                } else {
+                    $usercoursedisplay = $course->coursedisplay;
                 }
-                $url->set_anchor('section-'.$sectionno);
+                if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                    $url->param('section', $sectionno);
+                } else {
+                    if (empty($CFG->linkcoursesections) && !empty($options['navigation'])) {
+                        return null;
+                    }
+                    $url->set_anchor('section-'.$sectionno);
+                }
             }
         }
         return $url;
