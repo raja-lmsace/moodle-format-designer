@@ -610,6 +610,9 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     position: relative;
     /* z-index: 0; */
 }
+.format-designer .course-content ul.designer.course-type-flow li.section .section-header-content {
+    z-index: 0;
+}
 .format-designer .course-content ul.designer li.section .section-header-content .section-head-text {
     display: inline-block;
 }
