@@ -21,9 +21,9 @@
  * @copyright  2021 bdecent gmbh <https://bdecent.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- define(['jquery', 'core/fragment', 'core/templates', 'core/loadingicon', 'core/ajax',
+define(['jquery', 'core/fragment', 'core/templates', 'core/loadingicon', 'core/ajax',
     'core_course/actions', 'core_message/toggle_contact_button', 'theme_boost/popover', 'core/notification',],
- function($, Fragment, Templates, Loadingicon, Ajax, Actions, Contact, Notification) {
+   function($, Fragment, Templates, Loadingicon, Ajax, Actions, Contact, Notification) {
 
     var SELECTOR = {
         ACTIVITYLI: 'li.activity',
@@ -85,7 +85,9 @@
             });
         });
 
-        $('.progress .progress-bar[data-toggle="popover"]').popover();
+        if (document.querySelector('.progress .progress-bar[data-toggle="popover"]') !== null) {
+            $('.progress .progress-bar[data-toggle="popover"]').popover();
+        }
 
     };
 

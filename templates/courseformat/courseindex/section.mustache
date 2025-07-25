@@ -77,13 +77,13 @@
             aria-controls="courseindexcollapse{{number}}"
             tabindex="-1"
         >
-            <span class="collapsed-icon icon-no-margin mr-1"
+            <span class="collapsed-icon icon-no-margin me-1"
                 title="{{#str}} expand, core {{/str}}">
                 <span class="dir-rtl-hide">{{#pix}} t/collapsedchevron, core {{/pix}}</span>
                 <span class="dir-ltr-hide">{{#pix}} t/collapsedchevron_rtl, core {{/pix}}</span>
                 <span class="sr-only">{{#str}} expand, core {{/str}}</span>
             </span>
-            <span class="expanded-icon icon-no-margin mr-1"
+            <span class="expanded-icon icon-no-margin me-1"
                 title="{{#str}} collapse, core {{/str}}">
                 {{#pix}} t/expandedchevron, core {{/pix}}
                 <span class="sr-only">{{#str}} collapse, core {{/str}}</span>
@@ -128,6 +128,6 @@
 </div>
 {{#js}}
 require(['core_courseformat/local/courseindex/section'], function(component) {
-    component.init('#course-index-cm-{{id}}');
+    component.init('#course-index-section-{{id}}');
 });
 {{/js}}

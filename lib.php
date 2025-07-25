@@ -323,6 +323,8 @@ class format_designer extends \core_courseformat\base {
      * @return void
      */
     public function page_set_course(moodle_page $page) {
+        global $CFG;
+
         $course = $this->get_course();
         if ($course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
             $page->add_body_class('format-designer-single-section');
@@ -332,9 +334,11 @@ class format_designer extends \core_courseformat\base {
             $classes = \local_designer\info::create()->generate_body_classes($course, $this);
             $page->add_body_class($classes);
 
-            // Include the designer pro styles.
-            $styleurl = \local_designer\courseoptions::create($course)->designer_include_style();
-            $page->requires->css($styleurl);
+            if ($CFG->branch >= 405) {
+                // Include the designer pro styles.
+                $styleurl = \local_designer\courseoptions::create($course)->designer_include_style();
+                $page->requires->css($styleurl);
+            }
         }
     }
     /**
@@ -1808,7 +1812,7 @@ function format_designer_get_all_layouts() {
     $layouts = [
         'default' => get_string('link', 'format_designer'),
         'list' => get_string('list', 'format_designer'),
-        'cards' => get_string('cards', 'format_designer')
+        'cards' => get_string('cards', 'format_designer'),
     ];
     $prolayouts = array_keys(core_component::get_plugin_list('layouts'));
     $prolayouts = (array) get_strings($prolayouts, 'format_designer');
@@ -2180,7 +2184,7 @@ function format_designer_course_has_videotime($course) {
  * @param stdClass $context The context of the course
  */
 function format_designer_extend_navigation_course($navigation, $course, $context) {
-    global $DB, $PAGE, $COURSE;
+    global $DB, $PAGE, $COURSE, $CFG;
     if ($course->format != 'designer') {
         return;
     }
@@ -2199,6 +2203,14 @@ function format_designer_extend_navigation_course($navigation, $course, $context
         'sectionreturn' => optional_param('section', 0, PARAM_INT),
     ];
     $PAGE->requires->js_call_amd('format_designer/designer_section', 'init', $jsparams);
+
+    if ($CFG->branch <= 404) {
+        if (format_designer_has_pro()) {
+            // Include the designer pro styles.
+            $styleurl = \local_designer\courseoptions::create($course)->designer_include_style();
+            $PAGE->requires->css($styleurl);
+        }
+    }
 
     $isaddsecondary = ($navigation->children->count() <= 1 && $PAGE->context->contextlevel == CONTEXT_MODULE) &&
         (format_designer_course_has_heroactivity($course) || $course->secondarymenutocourse);

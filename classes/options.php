@@ -34,13 +34,13 @@ use format_designer\output\cm_completion;
  * Module additional custom fields processing.
  */
 class options {
-    
+
     /**
      * Cache for options per cmid.
      *
      * @var array
      */
-    static $optionspercmid = [];
+    public static $optionspercmid = [];
 
     /**
      * Find the given string is JSON format or not.

@@ -183,7 +183,7 @@ class content extends content_base {
         global $CFG;
         $format = $this->format;
 
-         if (method_exists($format, 'get_sectionnum')) {
+        if (method_exists($format, 'get_sectionnum')) {
             $singlesection = $format->get_sectionnum();
         } else {
             $singlesection = $format->get_section_number();
