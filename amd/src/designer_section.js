@@ -85,19 +85,19 @@ define(['jquery', 'core/fragment', 'core/templates', 'core/loadingicon', 'core/a
             });
         });
 
-        if (document.querySelector('.progress .progress-bar[data-toggle="popover"]') !== null) {
-            document.querySelector('.progress .progress-bar[data-toggle="popover"]').popover();
-        }
 
         // Moodle 5.0 compatibility.
         if (document.querySelector('.progress .progress-bar[data-bs-toggle="popover"]') !== null) {
-            require(['theme_boost/bootstrap/popover'], function(Popover) {
-                var popoverelem = document.querySelectorAll('.progress .progress-bar[data-bs-toggle="popover"]');
-                Array.from(popoverelem).forEach((popoverTriggerEl) => {
-                    new Popover(popoverTriggerEl);
-                });
-            });
+            var popoverelem = document.querySelectorAll('.progress .progress-bar[data-bs-toggle="popover"]');
+        } else if ((document.querySelector('.progress .progress-bar[data-toggle="popover"]') !== null)) {
+            var popoverelem = document.querySelectorAll('.progress .progress-bar[data-toggle="popover"]');
         }
+
+        require(['theme_boost/bootstrap/popover'], function(Popover) {
+            Array.from(popoverelem).forEach((popoverTriggerEl) => {
+                new Popover(popoverTriggerEl);
+            });
+        });
 
     };
 
