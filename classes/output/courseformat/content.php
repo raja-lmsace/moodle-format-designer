@@ -149,13 +149,17 @@ class content extends content_base {
 
             $sectiondata = $section->export_for_template($output);
             $checksectionvisible = ($course->coursedisplay != COURSE_DISPLAY_MULTIPAGE);
+
+            $displayunavailableactivities = isset($course->displayunavailableactivities) ?
+                $course->displayunavailableactivities : false;
+
             if (!$format->is_section_visible($thissection)) {
-                if (!format_designer_has_pro() || !isset($course->displayunavailableactivities)
+                if (!format_designer_has_pro() || !$displayunavailableactivities
                     || $course->coursedisplay != COURSE_DISPLAY_MULTIPAGE) {
                     continue;
                 }
 
-                if (!$course->displayunavailableactivities) {
+                if (!$displayunavailableactivities) {
                     continue;
                 }
                 $sectiondata->header->title = get_section_name($course, $sectiondata->num);

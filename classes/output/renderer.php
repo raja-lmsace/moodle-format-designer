@@ -1038,10 +1038,13 @@ class renderer extends \core_courseformat\output\section_renderer {
             $mods = [];
             $cmids = $modinfo->sections[$section->section] ?? [];
 
+            $displayunavailableactivities = isset($course->displayunavailableactivities) ?
+                $course->displayunavailableactivities : false;
+
             foreach ($cmids as $cmid) {
                 $thismod = $modinfo->cms[$cmid];
                 if (!$thismod->get_course_module_record()->deletioninprogress) {
-                    if (!$thismod->is_visible_on_course_page() && !isset($course->displayunavailableactivities)) {
+                    if (!$thismod->is_visible_on_course_page() && !$displayunavailableactivities) {
                         continue;
                     }
                     if (format_designer_has_pro() && isset($course->activitydisplaymode)
