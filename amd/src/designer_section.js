@@ -89,16 +89,19 @@ define(['jquery', 'core/fragment', 'core/templates', 'core/loadingicon', 'core/a
         // Moodle 5.0 compatibility.
         if (document.querySelector('.progress .progress-bar[data-bs-toggle="popover"]') !== null) {
             var popoverelem = document.querySelectorAll('.progress .progress-bar[data-bs-toggle="popover"]');
+            this.initPopover(popoverelem);
         } else if ((document.querySelector('.progress .progress-bar[data-toggle="popover"]') !== null)) {
             var popoverelem = document.querySelectorAll('.progress .progress-bar[data-toggle="popover"]');
+            this.initPopover(popoverelem);
         }
+    };
 
+    DesignerSection.prototype.initPopover = function(popoverelem) {
         require(['theme_boost/bootstrap/popover'], function(Popover) {
-            Array.from(popoverelem).forEach((popoverTriggerEl) => {
+            popoverelem.forEach((popoverTriggerEl) => {
                 new Popover(popoverTriggerEl);
             });
         });
-
     };
 
     /**
