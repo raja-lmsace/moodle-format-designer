@@ -586,7 +586,7 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: -1;
 }
 .format-designer .course-content ul.designer li.section.main.bg-color-overlay.section-design-whole .img-block .bg-overlay,
 .format-designer .course-content ul.designer li.section.main.section-design-whole .bg-color-overlay .img-block .bg-overlay,
@@ -615,7 +615,8 @@ body.format-designer.editing ul.designer .section .circles-layout .activity .edi
     padding: 10px;
     background-size: cover;
     background-repeat: no-repeat;
-    position: relative;
+    /* position: relative; */
+    z-index: 0;
 }
 .format-designer .course-content ul.designer.course-type-flow li.section .section-header-content {
     z-index: 0;
